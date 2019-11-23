@@ -5,3 +5,4 @@ Work in progress. This will replace [go-whosonfirst-readwrite](https://github.co
 ## See also
 
 * https://github.com/whosonfirst/go-reader
+* https://github.com/google/go-github

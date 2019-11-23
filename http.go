@@ -6,11 +6,11 @@ import (
 	"fmt"
 	wof_reader "github.com/whosonfirst/go-reader"
 	"io"
+	_ "log"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-	_ "log"
 )
 
 func init() {
@@ -50,7 +50,7 @@ func (r *GitHubReader) Open(ctx context.Context, uri string) error {
 
 	path := strings.TrimLeft(u.Path, "/")
 	parts := strings.Split(path, "/")
-	
+
 	if len(parts) < 2 {
 		return errors.New("Invalid path")
 	}
@@ -71,7 +71,7 @@ func (r *GitHubReader) Read(ctx context.Context, uri string) (io.ReadCloser, err
 	<-r.throttle
 
 	url := r.URI(uri)
-	
+
 	rsp, err := http.Get(url)
 
 	if err != nil {

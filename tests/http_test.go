@@ -3,10 +3,10 @@ package tests
 import (
 	"context"
 	"fmt"
+	"github.com/whosonfirst/go-reader"
+	_ "github.com/whosonfirst/go-reader-github"
 	"io"
 	"io/ioutil"
-	"github.com/whosonfirst/go-reader"	
-	_ "github.com/whosonfirst/go-reader-github"
 	"testing"
 )
 
@@ -19,7 +19,7 @@ func TestHTTPReader(t *testing.T) {
 	file_uri := "101/736/545/101736545.geojson"
 
 	ctx := context.Background()
-	
+
 	r, err := reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
@@ -39,5 +39,5 @@ func TestHTTPReader(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	
+
 }

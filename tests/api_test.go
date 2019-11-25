@@ -2,13 +2,13 @@ package tests
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"github.com/whosonfirst/go-reader"
 	_ "github.com/whosonfirst/go-reader-github"
 	"io"
 	"io/ioutil"
 	"testing"
-	"flag"
 )
 
 var access_token = flag.String("access-token", "", "A valid GitHub Oauth2 access token")
@@ -18,7 +18,7 @@ func TestAPIReader(t *testing.T) {
 	if *access_token == "" {
 		return
 	}
-	
+
 	owner := "whosonfirst-data"
 	repo := "whosonfirst-data-admin-ca"
 

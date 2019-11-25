@@ -87,6 +87,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/whosonfirst/go-reader v0.0.0-20191122213718-25d6c34f3bcc h1:iZZD21HSlqi8nOgGzGb8fXjnlEO/kdVAHkBNL/k58FA=
 github.com/whosonfirst/go-reader v0.0.0-20191122213718-25d6c34f3bcc/go.mod h1:k/U2jXarXsFWC2yh63kYgKIJzTEmc60lN/ipyrdT3W4=
+github.com/whosonfirst/go-reader v0.0.1 h1:8FAQgnOvvPBxb6PDuPF+DzYBNR8gl27ON3fY1zU2xY4=
+github.com/whosonfirst/go-reader v0.0.1/go.mod h1:k/U2jXarXsFWC2yh63kYgKIJzTEmc60lN/ipyrdT3W4=
 github.com/whosonfirst/go-whosonfirst-reader v0.0.0-20191122203133-047f20452865/go.mod h1:xYzBn6llLD/uS6Zhh0H4LAqddEJHXdQSUIxywTnhpOU=
 github.com/whosonfirst/go-whosonfirst-sources v0.1.0/go.mod h1:EUMHyGzUmqPPxlMmOp+28BFeoBdxxE0HCKRd67lkqGM=
 github.com/whosonfirst/go-whosonfirst-uri v0.1.0/go.mod h1:8eaDVcc4v+HHHEDaRbApdmhPwM4/JQllw2PktvZcPVs=

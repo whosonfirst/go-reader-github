@@ -3,7 +3,6 @@ package reader
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/google/go-github/github"
 	wof_reader "github.com/whosonfirst/go-reader"
 	"golang.org/x/oauth2"
@@ -11,6 +10,7 @@ import (
 	"io/ioutil"
 	_ "log"
 	"net/url"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -24,6 +24,7 @@ type GitHubAPIReader struct {
 	wof_reader.Reader
 	owner    string
 	repo     string
+	prefix   string
 	branch   string
 	client   *github.Client
 	throttle <-chan time.Time
@@ -81,6 +82,9 @@ func (r *GitHubAPIReader) Open(ctx context.Context, uri string) error {
 
 	r.client = client
 
+	prefix := q.Get("prefix")
+	r.prefix = prefix
+
 	return nil
 }
 
@@ -112,5 +116,11 @@ func (r *GitHubAPIReader) Read(ctx context.Context, uri string) (io.ReadCloser, 
 
 func (r *GitHubAPIReader) URI(key string) string {
 
-	return fmt.Sprintf("data/%s", key)
+	uri := key
+
+	if r.prefix != "" {
+		uri = filepath.Join(r.prefix, key)
+	}
+
+	return uri
 }

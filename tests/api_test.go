@@ -22,7 +22,7 @@ func TestAPIReader(t *testing.T) {
 	owner := "whosonfirst-data"
 	repo := "whosonfirst-data-admin-ca"
 
-	reader_uri := fmt.Sprintf("github:///%s/%s?access_token=%s", owner, repo, *access_token)
+	reader_uri := fmt.Sprintf("githubapi://%s/%s/%s?access_token=%s", owner, repo, *access_token)
 	file_uri := "101/736/545/101736545.geojson"
 
 	ctx := context.Background()

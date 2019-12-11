@@ -48,19 +48,24 @@ func (r *GitHubReader) Open(ctx context.Context, uri string) error {
 		return err
 	}
 
+	r.owner = u.Host
+
 	path := strings.TrimLeft(u.Path, "/")
 	parts := strings.Split(path, "/")
 
-	if len(parts) < 2 {
+	if len(parts) != 1 {
 		return errors.New("Invalid path")
 	}
 
-	r.owner = parts[0]
-	r.repo = parts[1]
+	r.repo = parts[0]
 	r.branch = "master"
 
-	if len(parts) == 3 {
-		r.branch = parts[2]
+	q := u.Query()
+
+	branch := q.Get("branch")
+
+	if branch != "" {
+		r.branch = branch
 	}
 
 	return nil

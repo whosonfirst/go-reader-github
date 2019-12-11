@@ -50,27 +50,29 @@ func (r *GitHubAPIReader) Open(ctx context.Context, uri string) error {
 		return err
 	}
 
+	r.owner = u.Host
+
 	path := strings.TrimLeft(u.Path, "/")
 	parts := strings.Split(path, "/")
 
-	if len(parts) < 2 {
+	if len(parts) != 1 {
 		return errors.New("Invalid path")
 	}
 
-	r.owner = parts[0]
-	r.repo = parts[1]
+	r.repo = parts[0]
 	r.branch = "master"
-
-	if len(parts) == 3 {
-		r.branch = parts[2]
-	}
 
 	q := u.Query()
 
 	token := q.Get("access_token")
+	branch := q.Get("branch")
 
 	if token == "" {
 		return errors.New("Missing access token")
+	}
+
+	if branch != "" {
+		r.branch = branch
 	}
 
 	ts := oauth2.StaticTokenSource(

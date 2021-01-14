@@ -14,8 +14,9 @@ func TestHTTPReader(t *testing.T) {
 
 	owner := "whosonfirst-data"
 	repo := "whosonfirst-data-admin-ca"
+	branch := "master" // pending rollover (20210114/thisisaaronland)
 
-	reader_uri := fmt.Sprintf("github://%s/%s", owner, repo)
+	reader_uri := fmt.Sprintf("github://%s/%s?branch=%s", owner, repo, branch)
 	file_uri := "101/736/545/101736545.geojson"
 
 	ctx := context.Background()

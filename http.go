@@ -56,7 +56,7 @@ func NewGitHubReader(ctx context.Context, uri string) (wof_reader.Reader, error)
 	}
 
 	r.repo = parts[0]
-	r.branch = "master"
+	r.branch = DEFAULT_BRANCH
 
 	q := u.Query()
 

@@ -21,7 +21,7 @@ func TestAPIReader(t *testing.T) {
 
 	owner := "whosonfirst-data"
 	repo := "whosonfirst-data-admin-ca"
-	branch := "master"
+	branch := "master" // pending rollover (20210114/thisisaaronland)
 
 	reader_uri := fmt.Sprintf("githubapi://%s/%s/%s?access_token=%s", owner, repo, branch, *access_token)
 	file_uri := "101/736/545/101736545.geojson"

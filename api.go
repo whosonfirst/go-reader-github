@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/google/go-github/github"
 	wof_reader "github.com/whosonfirst/go-reader"
-	"github.com/whosonfirst/go-reader/ioutil"
+	"github.com/whosonfirst/go-ioutil"
 	"golang.org/x/oauth2"
 	"io"
 	_ "log"

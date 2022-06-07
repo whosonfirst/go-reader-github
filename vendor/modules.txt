@@ -1,23 +1,23 @@
-# github.com/aaronland/go-roster v0.0.2
+# github.com/aaronland/go-roster v1.0.0
 github.com/aaronland/go-roster
 # github.com/golang/protobuf v1.4.2
 github.com/golang/protobuf/proto
 # github.com/google/go-github v17.0.0+incompatible
 ## explicit
 github.com/google/go-github/github
-# github.com/google/go-querystring v1.0.0
+# github.com/google/go-querystring v1.1.0
 ## explicit
 github.com/google/go-querystring/query
-# github.com/whosonfirst/go-ioutil v0.0.1
+# github.com/whosonfirst/go-ioutil v1.0.2
 ## explicit
 github.com/whosonfirst/go-ioutil
-# github.com/whosonfirst/go-reader v0.5.0
+# github.com/whosonfirst/go-reader v1.0.1
 ## explicit
 github.com/whosonfirst/go-reader
-# golang.org/x/net v0.0.0-20200822124328-c89045814202
+# golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 golang.org/x/net/context
 golang.org/x/net/context/ctxhttp
-# golang.org/x/oauth2 v0.0.0-20210220000619-9bb904979d93
+# golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 ## explicit
 golang.org/x/oauth2
 golang.org/x/oauth2/internal

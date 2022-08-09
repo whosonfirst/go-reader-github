@@ -9,6 +9,7 @@ import (
 	"golang.org/x/oauth2"
 	"io"
 	_ "log"
+	"net/http"
 	"net/url"
 	"path/filepath"
 	"strings"
@@ -110,12 +111,35 @@ func (r *GitHubAPIReader) Read(ctx context.Context, uri string) (io.ReadSeekClos
 
 	body, err := rsp.GetContent()
 
+	var rsp_r io.Reader
+
 	if err != nil {
-		return nil, fmt.Errorf("Failed to read contents for %s, %w", url, err)
+
+		// START OF I have no idea why I need to do this, but only sometimes...
+
+		if *rsp.Content != "" {
+			return nil, fmt.Errorf("Failed to read contents for %s, %w", url, err)
+		}
+
+		if *rsp.DownloadURL == "" {
+			return nil, fmt.Errorf("Failed to read contents for %s and response is missing download URL, %w", url, err)
+		}
+
+		raw_rsp, err := http.Get(*rsp.DownloadURL)
+
+		if err != nil {
+			return nil, fmt.Errorf("Failed to fetch contents from download URL, %w", err)
+		}
+
+		rsp_r = raw_rsp.Body
+
+		// END OF I have no idea why I need to do this, but only sometimes...
+
+	} else {
+		rsp_r = strings.NewReader(body)
 	}
 
-	sr := strings.NewReader(body)
-	fh, err := ioutil.NewReadSeekCloser(sr)
+	fh, err := ioutil.NewReadSeekCloser(rsp_r)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create ReadSeekCloser for %s, %w", url, err)

@@ -2,7 +2,7 @@ package reader
 
 import (
 	"context"
-	"errors"
+	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/whosonfirst/go-ioutil"
 	wof_reader "github.com/whosonfirst/go-reader"
@@ -56,7 +56,7 @@ func NewGitHubAPIReader(ctx context.Context, uri string) (wof_reader.Reader, err
 	parts := strings.Split(path, "/")
 
 	if len(parts) != 1 {
-		return nil, errors.New("Invalid path")
+		return nil, fmt.Errorf("Invalid path")
 	}
 
 	r.repo = parts[0]
@@ -68,7 +68,7 @@ func NewGitHubAPIReader(ctx context.Context, uri string) (wof_reader.Reader, err
 	branch := q.Get("branch")
 
 	if token == "" {
-		return nil, errors.New("Missing access token")
+		return nil, fmt.Errorf("Missing access token")
 	}
 
 	if branch != "" {
@@ -96,25 +96,29 @@ func (r *GitHubAPIReader) Read(ctx context.Context, uri string) (io.ReadSeekClos
 
 	url := r.ReaderURI(ctx, uri)
 
-	opts := &github.RepositoryContentGetOptions{}
+	ref := fmt.Sprintf("refs/heads/%s", r.branch)
+
+	opts := &github.RepositoryContentGetOptions{
+		Ref: ref,
+	}
 
 	rsp, _, _, err := r.client.Repositories.GetContents(ctx, r.owner, r.repo, url, opts)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to get contents for %s, %w", url, err)
 	}
 
 	body, err := rsp.GetContent()
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to read contents for %s, %w", url, err)
 	}
 
 	sr := strings.NewReader(body)
 	fh, err := ioutil.NewReadSeekCloser(sr)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to create ReadSeekCloser for %s, %w", url, err)
 	}
 
 	return fh, nil

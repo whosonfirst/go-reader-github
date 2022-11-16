@@ -6,7 +6,7 @@ require (
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/sfomuseum/runtimevar v1.0.3
 	github.com/whosonfirst/go-ioutil v1.0.2
-	github.com/whosonfirst/go-reader v1.0.1
+	github.com/whosonfirst/go-reader v1.0.2
 	gocloud.dev v0.27.0
 	golang.org/x/oauth2 v0.0.0-20220722155238-128564f6959c
 
@@ -35,6 +35,8 @@ require (
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/wire v0.5.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/net v0.0.0-20220802222814-0bcc04d9c69b // indirect

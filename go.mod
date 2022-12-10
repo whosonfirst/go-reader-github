@@ -3,7 +3,7 @@ module github.com/whosonfirst/go-reader-github
 go 1.18
 
 require (
-	github.com/google/go-github v17.0.0+incompatible
+	github.com/google/go-github/v48 v48.2.0
 	github.com/sfomuseum/runtimevar v1.0.3
 	github.com/whosonfirst/go-ioutil v1.0.2
 	github.com/whosonfirst/go-reader v1.0.2
@@ -39,6 +39,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
+	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
 	golang.org/x/net v0.0.0-20220802222814-0bcc04d9c69b // indirect
 	golang.org/x/sys v0.0.0-20220731174439-a90be440212d // indirect
 	golang.org/x/text v0.3.7 // indirect

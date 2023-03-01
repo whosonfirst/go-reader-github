@@ -4,10 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/whosonfirst/go-reader"
 	"io"
 	"io/ioutil"
 	"testing"
+
+	"github.com/whosonfirst/go-reader"
 )
 
 var access_token = flag.String("access-token", "", "A valid GitHub Oauth2 access token")

@@ -2,8 +2,9 @@ package reader
 
 import (
 	"context"
-	_ "gocloud.dev/runtimevar/constantvar"
 	"testing"
+
+	_ "gocloud.dev/runtimevar/constantvar"
 )
 
 func TestEnsureGitHubAccessToken(t *testing.T) {

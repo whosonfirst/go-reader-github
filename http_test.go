@@ -3,10 +3,11 @@ package reader
 import (
 	"context"
 	"fmt"
-	"github.com/whosonfirst/go-reader"
 	"io"
 	"io/ioutil"
 	"testing"
+
+	"github.com/whosonfirst/go-reader"
 )
 
 func TestHTTPReader(t *testing.T) {

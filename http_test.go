@@ -41,4 +41,13 @@ func TestHTTPReader(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	exists, err := r.Exists(ctx, file_uri)
+
+	if err != nil {
+		t.Fatalf("Failed to determine if %s exists, %v", file_uri, err)
+	}
+
+	if !exists {
+		t.Fatalf("Expected %s to exist", file_uri)
+	}
 }

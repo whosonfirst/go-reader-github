@@ -48,4 +48,13 @@ func TestAPIReader(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	exists, err := r.Exists(ctx, file_uri)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !exists {
+		t.Fatalf("Expected %s to exist", file_uri)
+	}
 }

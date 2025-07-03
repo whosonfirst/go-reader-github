@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
-	_ "log"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"path/filepath"
@@ -94,6 +94,30 @@ func NewGitHubAPIReader(ctx context.Context, uri string) (wof_reader.Reader, err
 
 func (r *GitHubAPIReader) Exists(ctx context.Context, uri string) (bool, error) {
 	return false, fmt.Errorf("Not implemented")
+
+	<-r.throttle
+
+	url := r.ReaderURI(ctx, uri)
+
+	ref := fmt.Sprintf("refs/heads/%s", r.branch)
+
+	opts := &github.RepositoryContentGetOptions{
+		Ref: ref,
+	}
+
+	_, _, http_rsp, _ := r.client.Repositories.GetContents(ctx, r.owner, r.repo, url, opts)
+
+	slog.Info("WUT", "code", http_rsp.StatusCode)
+
+	switch http_rsp.StatusCode {
+	case http.StatusOK:
+		return true, nil
+	case http.StatusNotFound:
+		return false, nil
+	default:
+		return false, fmt.Errorf("Failed to get contents for %s, %s", url, http_rsp.Status)
+	}
+
 }
 
 func (r *GitHubAPIReader) Read(ctx context.Context, uri string) (io.ReadSeekCloser, error) {

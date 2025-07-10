@@ -4,16 +4,15 @@ import (
 	"context"
 	"fmt"
 	"io"
-	_ "log"
 	"net/http"
 	"net/url"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/google/go-github/v48/github"
+	"github.com/google/go-github/v73/github"
 	"github.com/whosonfirst/go-ioutil"
-	wof_reader "github.com/whosonfirst/go-reader"
+	wof_reader "github.com/whosonfirst/go-reader/v2"
 	"golang.org/x/oauth2"
 )
 
@@ -90,6 +89,31 @@ func NewGitHubAPIReader(ctx context.Context, uri string) (wof_reader.Reader, err
 	r.prefix = prefix
 
 	return r, nil
+}
+
+func (r *GitHubAPIReader) Exists(ctx context.Context, uri string) (bool, error) {
+
+	<-r.throttle
+
+	url := r.ReaderURI(ctx, uri)
+
+	ref := fmt.Sprintf("refs/heads/%s", r.branch)
+
+	opts := &github.RepositoryContentGetOptions{
+		Ref: ref,
+	}
+
+	_, _, http_rsp, _ := r.client.Repositories.GetContents(ctx, r.owner, r.repo, url, opts)
+
+	switch http_rsp.StatusCode {
+	case http.StatusOK:
+		return true, nil
+	case http.StatusNotFound:
+		return false, nil
+	default:
+		return false, fmt.Errorf("Failed to get contents for %s, %s", url, http_rsp.Status)
+	}
+
 }
 
 func (r *GitHubAPIReader) Read(ctx context.Context, uri string) (io.ReadSeekCloser, error) {

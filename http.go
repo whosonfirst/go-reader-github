@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/whosonfirst/go-ioutil"
-	wof_reader "github.com/whosonfirst/go-reader"
+	wof_reader "github.com/whosonfirst/go-reader/v2"
 )
 
 type GitHubReader struct {
@@ -76,6 +76,33 @@ func NewGitHubReader(ctx context.Context, uri string) (wof_reader.Reader, error)
 	}
 
 	return r, nil
+}
+
+func (r *GitHubReader) Exists(ctx context.Context, uri string) (bool, error) {
+
+	<-r.throttle
+
+	logger := slog.Default()
+	logger = logger.With("uri", uri)
+
+	url := r.ReaderURI(ctx, uri)
+
+	logger.Debug("Read URL", "url", url)
+
+	rsp, err := http.Head(url)
+
+	if err != nil {
+		return false, fmt.Errorf("Failed to GET uri, %w", err)
+	}
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		return true, nil
+	case http.StatusNotFound:
+		return false, nil
+	default:
+		return false, fmt.Errorf("Unexpected status: %s", rsp.Status)
+	}
 }
 
 func (r *GitHubReader) Read(ctx context.Context, uri string) (io.ReadSeekCloser, error) {

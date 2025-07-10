@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/whosonfirst/go-reader"
+	"github.com/whosonfirst/go-reader/v2"
 )
 
 func TestHTTPReader(t *testing.T) {
@@ -24,13 +24,13 @@ func TestHTTPReader(t *testing.T) {
 	r, err := reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
-		t.Fatal(err)
+		t.Fatalf("Failed to create reader, %v", err)
 	}
 
 	fh, err := r.Read(ctx, file_uri)
 
 	if err != nil {
-		t.Fatal(err)
+		t.Fatalf("Failed to read %s, %v", file_uri, err)
 	}
 
 	defer fh.Close()
@@ -38,7 +38,16 @@ func TestHTTPReader(t *testing.T) {
 	_, err = io.Copy(ioutil.Discard, fh)
 
 	if err != nil {
-		t.Fatal(err)
+		t.Fatalf("Failed to copy %s contents, %v", file_uri, err)
 	}
 
+	exists, err := r.Exists(ctx, file_uri)
+
+	if err != nil {
+		t.Fatalf("Failed to determine if %s exists, %v", file_uri, err)
+	}
+
+	if !exists {
+		t.Fatalf("Expected %s to exist", file_uri)
+	}
 }
